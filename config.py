@@ -27,6 +27,14 @@ CONTACT = 'minimum@cepave.com'
 
 COMMUNITY = True
 
+JSONCFG = {}
+JSONCFG['shortcut'] = {}
+JSONCFG['shortcut']['falconPortal']     = "http://127.0.0.1:5050"
+JSONCFG['shortcut']['falconDashboard']  = "http://127.0.0.1:8081"
+JSONCFG['shortcut']['grafanaDashboard'] = "http://127.0.0.1:3000"
+JSONCFG['shortcut']['falconAlarm']      = "http://127.0.0.1:9912"
+JSONCFG['shortcut']['falconUIC']        = "http://127.0.0.1:1234"
+
 try:
     from frame.local_config import *
 except Exception, e:
