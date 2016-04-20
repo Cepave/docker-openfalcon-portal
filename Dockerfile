@@ -16,7 +16,7 @@ COPY $CONFIGFILE $CONFIGDIR/
 RUN \
   ln -snf $CONFIGDIR/$CONFIGFILE $WORKDIR/frame/$CONFIGFILE && \
   virtualenv $WORKDIR/env && \
-  pip install -r /home/portal/pip_requirements.txt
+  pip install -r $WORKDIR/pip_requirements.txt
 
 WORKDIR /root
 COPY run.sh ./
