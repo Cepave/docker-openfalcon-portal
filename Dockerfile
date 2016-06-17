@@ -10,7 +10,6 @@ RUN \
   apk add --no-cache tzdata bash \
   && cp /usr/share/zoneinfo/Asia/Taipei /etc/localtime \
   && echo "Asia/Taipei" > /etc/timezone \
-  && apk del tzdata \
   && echo "alias ps='pstree'" > ~/.bashrc \
   && mkdir -p $CONFIGDIR
 
@@ -19,9 +18,9 @@ RUN apk add --no-cache python-dev py-virtualenv py-mysqldb
 ADD $PACKFILE $WORKDIR
 COPY $CONFIGFILE $CONFIGDIR/
 RUN \
-  ln -snf $CONFIGDIR/$CONFIGFILE $WORKDIR/frame/$CONFIGFILE && \
-  virtualenv $WORKDIR/env && \
-  pip install -r $WORKDIR/pip_requirements.txt
+  ln -snf $CONFIGDIR/$CONFIGFILE $WORKDIR/frame/$CONFIGFILE \
+  && virtualenv $WORKDIR/env \
+  && pip install -r $WORKDIR/pip_requirements.txt
 
 WORKDIR $WORKDIR
 COPY run.sh $WORKDIR
