@@ -5,7 +5,7 @@
 Enter the following command in the repo directory.
 
 ```
-$sudo docker build --force-rm=true -t openfalcon-portal .
+$ docker build -t openfalcon-portal -f docker/ubuntu/Dockerfile .
 ```
 
 ## Run
@@ -15,7 +15,7 @@ $sudo docker build --force-rm=true -t openfalcon-portal .
 Use default configuration, and falcon-portal package.
 
 ```
-$sudo docker run -dti --name portal -p 5050:5050 openfalcon-portal
+$ docker run -d --name portal -p 5050:5050 openfalcon-portal
 ```
 
 ### Advanced Run
@@ -28,5 +28,5 @@ $sudo docker run -dti --name portal -p 5050:5050 openfalcon-portal
 For example, **config.py** in /tmp/config,
 
 ```
-$sudo docker run -dti --name portal -v /tmp/config/config.py:/config/config.py -p 5050:5050 openfalcon-portal
+$ docker run -d --name portal -v /tmp/config/config.py:/config/config.py -p 5050:5050 openfalcon-portal
 ```
