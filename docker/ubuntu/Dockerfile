@@ -5,7 +5,7 @@ MAINTAINER minimum@cepave.com
 ARG DOCKERDIR=docker/ubuntu
 ARG PACKFILE=falcon-portal.tar.gz
 ARG CONFIGDIR=/config
-ENV WORKDIR=/home/portal
+ENV WORKDIR=/home/portal TZ=Asia/Taipei
 
 # Install Open-Falcon Portal Component
 RUN \
