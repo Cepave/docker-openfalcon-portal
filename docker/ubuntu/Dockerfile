@@ -2,7 +2,10 @@ FROM ubuntu:14.04
 
 MAINTAINER minimum@cepave.com
 
-ENV WORKDIR=/home/portal DOCKERDIR=docker/ubuntu PACKFILE=falcon-portal.tar.gz CONFIGDIR=/config CONFIGFILE=config.py
+ARG DOCKERDIR=docker/ubuntu
+ARG PACKFILE=falcon-portal.tar.gz
+ARG CONFIGDIR=/config
+ENV WORKDIR=/home/portal
 
 # Install Open-Falcon Portal Component
 RUN \
@@ -10,9 +13,10 @@ RUN \
   apt-get install -y python-virtualenv python-dev python-mysqldb && \
   mkdir -p $WORKDIR $CONFIGDIR
 ADD $DOCKERDIR/$PACKFILE $WORKDIR
-COPY src/$CONFIGFILE $CONFIGDIR/
+ARG CONFIGFILE=config.py
+COPY src/config.py $CONFIGDIR/$CONFIGFILE
 RUN \
-  ln -sf $CONFIGDIR/$CONFIGFILE $WORKDIR/frame/$CONFIGFILE && \
+  ln -sf $CONFIGDIR/$CONFIGFILE $WORKDIR/frame/config.py && \
   virtualenv $WORKDIR/env && \
   pip install -r $WORKDIR/pip_requirements.txt
 
