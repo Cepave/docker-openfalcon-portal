@@ -22,11 +22,11 @@ $ docker run -d --name portal -p 5050:5050 openfalcon-portal
 
 + Self-defined configuration
 
-    Replace file **config.py** in the volume */config*.  
-    For more detail about **config.py**, see [Portal](http://book.open-falcon.com/zh/install/portal.html).
+    Replace file **config.py** and **gunicorn.conf** in the volume */config*.  
+    For more details about **config.py** and **gunicorn.conf**, see [Portal](http://book.open-falcon.com/zh/install/portal.html).
 
-For example, **config.py** in /tmp/config,
+For example, **config.py** and **gunicorn.conf** in /tmp/config,
 
 ```
-$ docker run -d --name portal -v /tmp/config/config.py:/config/config.py -p 5050:5050 openfalcon-portal
+$ docker run -d --name portal -v /tmp/config/config.py:/config/config.py -v /tmp/config/gunicorn.conf:/config/gunicorn.conf -p 5050:5050 openfalcon-portal
 ```

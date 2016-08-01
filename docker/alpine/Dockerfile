@@ -20,9 +20,12 @@ RUN \
 RUN apk add --no-cache python-dev py-virtualenv py-mysqldb
 ADD $DOCKERDIR/$PACKFILE $WORKDIR
 ARG CONFIGFILE=config.py
+ARG GUNICORN_CONFIGFILE=gunicorn.conf
 COPY src/config.py $CONFIGDIR/$CONFIGFILE
+COPY src/gunicorn.conf $CONFIGDIR/$GUNICORN_CONFIGFILE
 RUN \
   ln -sf $CONFIGDIR/$CONFIGFILE $WORKDIR/frame/config.py \
+  && ln -sf $CONFIGDIR/$GUNICORN_CONFIGFILE $WORKDIR/gunicorn.conf \
   && virtualenv $WORKDIR/env \
   && pip install -r $WORKDIR/pip_requirements.txt
 
