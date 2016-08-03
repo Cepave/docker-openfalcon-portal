@@ -17,24 +17,22 @@ RUN \
   && mkdir -p $CONFIGDIR
 
 # Install Open-Falcon Portal Component
-RUN apk add --no-cache python-dev py-virtualenv py-mysqldb
+WORKDIR $WORKDIR
+RUN apk add --no-cache py-pip python-dev py-mysqldb
 ADD $DOCKERDIR/$PACKFILE $WORKDIR
 ARG CONFIGFILE=config.py
 ARG GUNICORN_CONFIGFILE=gunicorn.conf
 COPY src/config.py $CONFIGDIR/$CONFIGFILE
 COPY src/gunicorn.conf $CONFIGDIR/$GUNICORN_CONFIGFILE
+COPY $DOCKERDIR/run.sh $WORKDIR/
 RUN \
   ln -sf $CONFIGDIR/$CONFIGFILE $WORKDIR/frame/config.py \
   && ln -sf $CONFIGDIR/$GUNICORN_CONFIGFILE $WORKDIR/gunicorn.conf \
-  && virtualenv $WORKDIR/env \
   && pip install -r $WORKDIR/pip_requirements.txt
-
-WORKDIR $WORKDIR
-COPY $DOCKERDIR/run.sh $WORKDIR/
 
 # Port
 EXPOSE 5050
 
 # Start
-ENTRYPOINT ["/bin/bash"]
-CMD ["run.sh"]
+ENTRYPOINT ["gunicorn"]
+CMD ["-c", "gunicorn.conf", "wsgi:app", "-t", "6000"]
