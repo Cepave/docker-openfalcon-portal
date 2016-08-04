@@ -35,4 +35,4 @@ EXPOSE 5050
 
 # Start
 ENTRYPOINT ["gunicorn"]
-CMD ["-c", "gunicorn.conf", "wsgi:app", "-t", "6000"]
+CMD ["-c", "gunicorn.conf", "wsgi:app"]
