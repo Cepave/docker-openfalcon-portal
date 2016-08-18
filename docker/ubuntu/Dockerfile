@@ -12,7 +12,7 @@ WORKDIR $WORKDIR
 RUN \
   apt-get update \
   && DEBIAN_FRONTEND=noninteractive \
-     apt-get install -y python-pip python-dev python-mysqldb \
+     apt-get install -y python-pip python-dev python-mysqldb curl \
   && mkdir -p $WORKDIR $CONFIGDIR
 ADD $DOCKERDIR/$PACKFILE $WORKDIR
 ARG CONFIGFILE=config.py
@@ -31,3 +31,5 @@ EXPOSE 5050
 # Start
 ENTRYPOINT ["gunicorn"]
 CMD ["-c", "gunicorn.conf", "wsgi:app"]
+HEALTHCHECK --interval=10s --timeout=2s \
+  CMD curl -sSf http://localhost:5050/api/health || exit 1
