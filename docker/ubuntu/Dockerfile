@@ -31,5 +31,5 @@ EXPOSE 5050
 # Start
 ENTRYPOINT ["gunicorn"]
 CMD ["-c", "gunicorn.conf", "wsgi:app"]
-HEALTHCHECK --interval=10s --timeout=2s \
+HEALTHCHECK --interval=60s --timeout=2s \
   CMD curl -sSf http://localhost:5050/api/health || exit 1
