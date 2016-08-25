@@ -10,7 +10,7 @@ ENV WORKDIR=/home/portal
 # Set timezone, bash, config dir
 # Set alias in the case of user want to execute control in their terminal
 RUN \
-  apk add --no-cache tzdata bash \
+  apk add --no-cache tzdata bash curl\
   && cp /usr/share/zoneinfo/Asia/Taipei /etc/localtime \
   && echo "Asia/Taipei" > /etc/timezone \
   && echo "alias ps='pstree'" > ~/.bashrc \
@@ -36,3 +36,5 @@ EXPOSE 5050
 # Start
 ENTRYPOINT ["gunicorn"]
 CMD ["-c", "gunicorn.conf", "wsgi:app"]
+HEALTHCHECK --interval=60s --timeout=2s \
+  CMD curl -sSf http://localhost:5050/api/health || exit 1
